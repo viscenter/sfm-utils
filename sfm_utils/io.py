@@ -4,7 +4,9 @@ from os import PathLike
 from pathlib import Path
 from typing import Union
 
-from sfm_utils import Scene, scene_to_alicevision, scene_to_openmvg
+from sfm_utils.alicevision import scene_to_alicevision
+from sfm_utils.openmvg import scene_to_openmvg
+from sfm_utils.sfm import Scene
 
 
 class Format(Enum):

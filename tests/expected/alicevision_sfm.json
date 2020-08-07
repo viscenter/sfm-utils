@@ -1,60 +1,60 @@
 {
-  "version": [
-    "1",
-    "0",
-    "0"
-  ],
-  "views": [
-    {
-      "viewID": "0",
-      "poseID": "0",
-      "intrinsicID": "0",
-      "path": "view.jpg",
-      "width": "100",
-      "height": "100"
-    }
-  ],
-  "intrinsics": [
-    {
-      "intrinsicID": "0",
-      "width": "100",
-      "height": "100",
-      "serialNumber": "0",
-      "type": "pinhole",
-      "initializationMode": "estimated",
-      "pxInitialFocalLength": "100.0",
-      "pxFocalLength": "100.0",
-      "principalPoint": [
-        "50.0",
-        "50.0"
-      ],
-      "locked": "0"
-    }
-  ],
-  "poses": [
-    {
-      "poseId": "0",
-      "pose": {
-        "transform": {
-          "rotation": [
-            "1.0",
-            "0.0",
-            "0.0",
-            "0.0",
-            "1.0",
-            "0.0",
-            "0.0",
-            "0.0",
-            "1.0"
-          ],
-          "center": [
-            "0.0",
-            "0.0",
-            "0.0"
-          ]
-        },
-        "locked": "0"
-      }
-    }
-  ]
+    "version": [
+        "1",
+        "0",
+        "0"
+    ],
+    "views": [
+        {
+            "viewID": "0",
+            "poseID": "0",
+            "intrinsicID": "0",
+            "path": "view.jpg",
+            "width": "100",
+            "height": "100"
+        }
+    ],
+    "intrinsics": [
+        {
+            "intrinsicID": "0",
+            "width": "100",
+            "height": "100",
+            "serialNumber": "0",
+            "type": "pinhole",
+            "initializationMode": "estimated",
+            "pxInitialFocalLength": "100.0",
+            "pxFocalLength": "100.0",
+            "principalPoint": [
+                "50.0",
+                "50.0"
+            ],
+            "locked": "0"
+        }
+    ],
+    "poses": [
+        {
+            "poseId": "0",
+            "pose": {
+                "transform": {
+                    "rotation": [
+                        "1.0",
+                        "0.0",
+                        "0.0",
+                        "0.0",
+                        "1.0",
+                        "0.0",
+                        "0.0",
+                        "0.0",
+                        "1.0"
+                    ],
+                    "center": [
+                        "0.0",
+                        "0.0",
+                        "0.0"
+                    ]
+                },
+                "locked": "0"
+            }
+        }
+    ]
 }

@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import numpy as np
 
-from sfm_utils import Intrinsic, IntrinsicType, Pose, Scene, View
+from sfm_utils.sfm import Intrinsic, IntrinsicType, Pose, Scene, View
 
 __AV_INTRINSIC_NAME_MAP = {
     IntrinsicType.PINHOLE: 'pinhole',

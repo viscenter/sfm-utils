@@ -1,5 +1,5 @@
 # Import everything into the sfm_utils namespace
-from .alicevision import *
-from .io import *
-from .openmvg import *
-from .sfm import *
+from sfm_utils.alicevision import *
+from sfm_utils.io import *
+from sfm_utils.openmvg import *
+from sfm_utils.sfm import *

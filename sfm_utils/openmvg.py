@@ -22,7 +22,7 @@ from typing import Union
 
 import numpy as np
 
-from sfm_utils import Intrinsic, IntrinsicType, Pose, Scene, View
+from sfm_utils.sfm import Intrinsic, IntrinsicType, Pose, Scene, View
 
 __OPENMVG_CAMDB_DEFAULT_PATH = '/usr/local/share/openMVG/sensor_width_camera_database.txt'
 
@@ -124,7 +124,7 @@ def scene_to_openmvg(scene: Scene):
 
         if intrinsic.dist_params is not None:
             dist_name = __OPENMVG_DIST_NAME_MAP[intrinsic.type]
-            d['value']['ptr_wrapper']['data'][dist_name] = intrinsic.dist_params
+            d['value']['ptr_wrapper']['data'][dist_name] = intrinsic.dist_params.tolist()
 
         return d
 
