@@ -175,7 +175,7 @@ class Intrinsic(SceneElement):
         self._sensor_width = w
 
     @property
-    def dist_params(self) -> np.ndarray:
+    def dist_params(self) -> List[float]:
         """
         Lens distortion parameters
         """
@@ -189,11 +189,11 @@ class IntrinsicRadialK3(Intrinsic):
 
     def __init__(self):
         super().__init__()
-        self._dist_params = np.zeros(3)
+        self._dist_params = [0.0, 0.0, 0.0]
 
     def __eq__(self, other):
         if super().__eq__(other):
-            return (self.dist_params == other.dist_params).all()
+            return self.dist_params == other.dist_params
         else:
             return False
 
@@ -205,11 +205,8 @@ class IntrinsicRadialK3(Intrinsic):
         return IntrinsicType.RADIAL_K3
 
     @Intrinsic.dist_params.setter
-    def dist_params(self, p: Union[List[float], np.ndarray]):
-        if type(p) == np.ndarray:
-            self._dist_params = p
-        else:
-            self._dist_params = np.array(p[0:3])
+    def dist_params(self, p: List[float]):
+        self._dist_params = p[0:3]
 
 
 class IntrinsicBrownT2(Intrinsic):
@@ -219,7 +216,7 @@ class IntrinsicBrownT2(Intrinsic):
 
     def __init__(self):
         super().__init__()
-        self._dist_params = np.zeros(5)
+        self._dist_params = [0.0, 0.0, 0.0, 0.0, 0.0]
 
     def __eq__(self, other):
         if super().__eq__(other):
@@ -235,11 +232,8 @@ class IntrinsicBrownT2(Intrinsic):
         return IntrinsicType.BROWN_T2
 
     @Intrinsic.dist_params.setter
-    def dist_params(self, p: Union[List[float], np.ndarray]):
-        if type(p) == np.ndarray:
-            self._dist_params = p
-        else:
-            self._dist_params = np.array(p[0:5])
+    def dist_params(self, p: List[float]):
+        self._dist_params = p[0:5]
 
 
 class Pose(SceneElement):

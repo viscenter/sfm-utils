@@ -124,7 +124,7 @@ def scene_to_openmvg(scene: Scene):
 
         if intrinsic.dist_params is not None:
             dist_name = __OPENMVG_DIST_NAME_MAP[intrinsic.type]
-            d['value']['ptr_wrapper']['data'][dist_name] = intrinsic.dist_params.tolist()
+            d['value']['ptr_wrapper']['data'][dist_name] = intrinsic.dist_params
 
         return d
 

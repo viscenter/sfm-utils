@@ -72,21 +72,21 @@ class TestIntrinsics(unittest.TestCase):
         # Test defaults
         intrinsic = sfm.IntrinsicRadialK3()
         self.assertEqual(intrinsic.type, sfm.IntrinsicType.RADIAL_K3)
-        self.assertTrue((intrinsic.dist_params == [0.0, 0.0, 0.0]).all())
+        self.assertEqual(intrinsic.dist_params, [0.0, 0.0, 0.0])
 
         # Override dist params
         intrinsic.dist_params = [0.0, 1.0, 2.0, 3.0]
-        self.assertTrue((intrinsic.dist_params == [0.0, 1.0, 2.0]).all())
+        self.assertEqual(intrinsic.dist_params, [0.0, 1.0, 2.0])
 
     def test_brown_t2(self):
         # Test defaults
         intrinsic = sfm.IntrinsicBrownT2()
         self.assertEqual(intrinsic.type, sfm.IntrinsicType.BROWN_T2)
-        self.assertTrue((intrinsic.dist_params == [0.0, 0.0, 0.0, 0.0, 0.0]).all())
+        self.assertEqual(intrinsic.dist_params, [0.0, 0.0, 0.0, 0.0, 0.0])
 
         # Override dist params
         intrinsic.dist_params = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0]
-        self.assertTrue((intrinsic.dist_params == [0.0, 1.0, 2.0, 3.0, 4.0]).all())
+        self.assertEqual(intrinsic.dist_params, [0.0, 1.0, 2.0, 3.0, 4.0])
 
 
 class TestIO(unittest.TestCase):
