@@ -16,14 +16,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import json
 from os import PathLike
 from pathlib import Path
 from typing import Union
 
 import numpy as np
 
-from sfm_utils.sfm import Intrinsic, IntrinsicType, Pose, SfMScene, View
+from sfm_utils import Intrinsic, IntrinsicType, Pose, Scene, View
 
 __OPENMVG_CAMDB_DEFAULT_PATH = '/usr/local/share/openMVG/sensor_width_camera_database.txt'
 
@@ -41,7 +40,7 @@ __OPENMVG_DIST_NAME_MAP = {
 }
 
 
-def load_cam_db(db_path: Union[str, bytes, PathLike, None] = None) -> dict:
+def openmvg_load_camdb(db_path: Union[str, bytes, PathLike, None] = None) -> dict:
     """
     Load the OpenMVG camera database file
     """
@@ -64,9 +63,9 @@ def load_cam_db(db_path: Union[str, bytes, PathLike, None] = None) -> dict:
     return d
 
 
-def export_openmvg(path: Union[str, bytes, PathLike], sfm: SfMScene):
+def openmvg_dict(sfm: Scene):
     """
-    Export SfMScene to an OpenMVG JSON file
+    Convert Scene to an OpenMVG-formatted dict. This dict can be written to a project file with the json package.
     """
     # Emulate the Cereal pointer counter
     __ptr_cnt = 2147483649
@@ -153,7 +152,4 @@ def export_openmvg(path: Union[str, bytes, PathLike], sfm: SfMScene):
         'control_points': []
     }
 
-    # Write to disk
-    output_file = Path(path)
-    with output_file.open(mode='w') as f:
-        json.dump(data, f, indent=4)
+    return data

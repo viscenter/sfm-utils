@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import argparse
 from abc import ABC
 from enum import auto, Enum
 from os import PathLike
@@ -24,17 +23,6 @@ from pathlib import Path
 from typing import List, Tuple, Union
 
 import numpy as np
-
-from sfm_utils.aliceVision import export_alicevision
-from sfm_utils.openMVG import export_openmvg
-
-
-class Format(Enum):
-    """
-    SfM file formats
-    """
-    OPEN_MVG = auto()
-    ALICE_VISION = auto()
 
 
 class IntrinsicType(Enum):
@@ -275,7 +263,7 @@ class Pose(SceneElement):
         Camera rotation matrix
         """
         if self._rotation is None:
-            return np.eye(3, 3)
+            return np.eye(3)
         else:
             return self._rotation
 
@@ -304,7 +292,7 @@ class View(SceneElement):
         return self._path
 
     @path.setter
-    def path(self, path: Path):
+    def path(self, path: Union[str, bytes, PathLike]):
         self._path = Path(path)
 
     @property
@@ -381,7 +369,7 @@ class View(SceneElement):
         return f'{self.camera_make} {self.camera_model}'
 
 
-class SfMScene:
+class Scene:
     """
     SfM scene
     """
@@ -403,7 +391,7 @@ class SfMScene:
         return self._root
 
     @root_dir.setter
-    def root_dir(self, p: Path):
+    def root_dir(self, p: Union[str, bytes, PathLike]):
         self._root = Path(p)
 
     @property
@@ -471,51 +459,3 @@ class SfMScene:
         pose.id = len(self._poses)
         self._poses.append(pose)
         return pose
-
-    def save(self, path: Union[str, bytes, PathLike], fmt: Format = Format.OPEN_MVG):
-        """
-        Save the SfM scene to a file
-        """
-        sfm_export(path, self, fmt)
-
-
-def sfm_export(path: str, sfm: SfMScene, fmt: Format = Format.OPEN_MVG):
-    if fmt == Format.OPEN_MVG:
-        export_openmvg(path, sfm)
-    elif fmt == Format.ALICE_VISION:
-        export_alicevision(path, sfm)
-
-
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--pgs-dir', '-p', required=True, help='PGS Scan directory')
-    parser.add_argument('--cam-db', '-d', default=__CAMERA_FILE_PARAMS, help='Camera database path')
-    parser.add_argument('--cam-calib', '-c', help="Camera calibrations file")
-    parser.add_argument('--output-sfm', '-o', default='sfm_data.json', help='Output SFM file')
-    args = parser.parse_args()
-
-    # Load the camera db
-    cam_db_path = Path(args.cam_db)
-    cam_db = load_cam_db(cam_db_path)
-
-    # Load the camera calibrations (if present)
-    calib = None
-    if args.cam_calib:
-        print('Loading camera calibrations...')
-        calib_path = Path(args.cam_calib)
-        calib = load_cam_calib(calib_path)
-
-    # Load the pgs file
-    print('Loading PGS Scan...')
-    pgs_dir_path = Path(args.pgs_dir)
-    sfm = import_pgs_scan(pgs_dir_path, cam_db, calib)
-
-    # Write the SFM
-    print('Exporting SfM scene...')
-    sfm.save(args.output_sfm)
-
-    print('Done.')
-
-
-if __name__ == '__main__':
-    main()

@@ -16,14 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import json
-from os import PathLike
-from pathlib import Path
-from typing import Union
-
 import numpy as np
 
-from sfm_utils.sfm import Intrinsic, IntrinsicType, Pose, SfMScene, View
+from sfm_utils import Intrinsic, IntrinsicType, Pose, Scene, View
 
 __AV_INTRINSIC_NAME_MAP = {
     IntrinsicType.PINHOLE: 'pinhole',
@@ -32,9 +27,9 @@ __AV_INTRINSIC_NAME_MAP = {
 }
 
 
-def export_alicevision(path: Union[str, bytes, PathLike], sfm: SfMScene):
+def alicevision_dict(sfm: Scene):
     """
-    Export SfMScene to an AliceVision JSON file
+    Convert Scene to an AliceVision-formatted dict. This dict can be written to a project file with the json package.
 
     Note: This is currently untested for actual use in MeshRoom
     """
@@ -104,7 +99,4 @@ def export_alicevision(path: Union[str, bytes, PathLike], sfm: SfMScene):
         "poses": [av_pose(pose) for pose in sfm.poses]
     }
 
-    # Write to a JSON file
-    output_file = Path(path)
-    with output_file.open(mode='w') as f:
-        json.dump(data, f, indent=4)
+    return data
