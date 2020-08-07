@@ -4,7 +4,7 @@ from os import PathLike
 from pathlib import Path
 from typing import Union
 
-from sfm_utils import alicevision_dict, openmvg_dict, Scene
+from sfm_utils import Scene, scene_to_alicevision, scene_to_openmvg
 
 
 class Format(Enum):
@@ -15,14 +15,14 @@ class Format(Enum):
     ALICE_VISION = auto()
 
 
-def export_scene(path: Union[str, bytes, PathLike], sfm: Scene, fmt: Format = Format.OPEN_MVG):
+def export_scene(path: Union[str, bytes, PathLike], scene: Scene, fmt: Format = Format.OPEN_MVG):
     """
     Export Scene to a project file
     """
     if fmt == Format.OPEN_MVG:
-        data = openmvg_dict(sfm)
+        data = scene_to_openmvg(scene)
     elif fmt == Format.ALICE_VISION:
-        data = alicevision_dict(sfm)
+        data = scene_to_alicevision(scene)
     else:
         raise ValueError('Unknown scene format')
 

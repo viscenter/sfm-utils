@@ -124,13 +124,13 @@ class TestIO(unittest.TestCase):
         # Compare the OpenMVG results
         with Path(expected_dir / 'openmvg_sfm.json').open('r') as f:
             openmvg_expected = f.read()
-        openmvg_result = json.dumps(sfm.openmvg_dict(self.scene), indent=4)
+        openmvg_result = json.dumps(sfm.scene_to_openmvg(self.scene), indent=4)
         self.assertEqual(openmvg_expected, openmvg_result)
 
         # Compare the AliceVision results
         with Path(expected_dir / 'alicevision_sfm.json').open('r') as f:
             av_expected = f.read()
-        av_result = json.dumps(sfm.alicevision_dict(self.scene), indent=4)
+        av_result = json.dumps(sfm.scene_to_alicevision(self.scene), indent=4)
         self.assertEqual(av_expected, av_result)
 
 

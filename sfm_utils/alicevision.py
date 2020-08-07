@@ -27,7 +27,7 @@ __AV_INTRINSIC_NAME_MAP = {
 }
 
 
-def alicevision_dict(sfm: Scene):
+def scene_to_alicevision(scene: Scene):
     """
     Convert Scene to an AliceVision-formatted dict. This dict can be written to a project file with the json package.
 
@@ -94,9 +94,9 @@ def alicevision_dict(sfm: Scene):
     # Construct AliceVision struct
     data = {
         "version": ["1", "0", "0"],
-        "views": [av_view(view) for view in sfm.views],
-        "intrinsics": [av_intrinsic(intr) for intr in sfm.intrinsics],
-        "poses": [av_pose(pose) for pose in sfm.poses]
+        "views": [av_view(view) for view in scene.views],
+        "intrinsics": [av_intrinsic(intr) for intr in scene.intrinsics],
+        "poses": [av_pose(pose) for pose in scene.poses]
     }
 
     return data

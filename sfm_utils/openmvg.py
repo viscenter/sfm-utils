@@ -63,7 +63,7 @@ def openmvg_load_camdb(db_path: Union[str, bytes, PathLike, None] = None) -> dic
     return d
 
 
-def openmvg_dict(sfm: Scene):
+def scene_to_openmvg(scene: Scene):
     """
     Convert Scene to an OpenMVG-formatted dict. This dict can be written to a project file with the json package.
     """
@@ -144,10 +144,10 @@ def openmvg_dict(sfm: Scene):
     # Construct OpenMVG struct
     data = {
         'sfm_data_version': '0.3',
-        'root_path': str(sfm.root_dir),
-        'views': [open_mvg_view(view) for view in sfm.views],
-        'intrinsics': [open_mvg_intrinsic(intr) for intr in sfm.intrinsics],
-        'extrinsics': [open_mvg_extrinsic(extr) for extr in sfm.poses],
+        'root_path': str(scene.root_dir),
+        'views': [open_mvg_view(view) for view in scene.views],
+        'intrinsics': [open_mvg_intrinsic(intr) for intr in scene.intrinsics],
+        'extrinsics': [open_mvg_extrinsic(extr) for extr in scene.poses],
         'structure': [],
         'control_points': []
     }
