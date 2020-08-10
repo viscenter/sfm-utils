@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 # Setup
 setuptools.setup(name="PySfMUtils",
-                 version="1.0.0",
+                 version="1.0.1",
                  author="Seth Parker",
                  author_email="c.seth.parker@uky.edu",
                  description="A Python library for interacting with Structure-from-Motion projects",
