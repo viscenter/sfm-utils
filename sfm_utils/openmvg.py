@@ -63,7 +63,7 @@ def openmvg_load_camdb(db_path: Union[str, bytes, PathLike, None] = None) -> dic
     return d
 
 
-def scene_to_openmvg(scene: Scene):
+def scene_to_openmvg(scene: Scene, convert_rotations: bool = True):
     """
     Convert Scene to an OpenMVG-formatted dict. This dict can be written to a project file with the json package.
     """
@@ -135,7 +135,8 @@ def scene_to_openmvg(scene: Scene):
         d = {
             "key": extrinsic.id,
             "value": {
-                "rotation": (__OPENMVG_ROT_MAT @ extrinsic.rotation).tolist(),
+                "rotation": (
+                    __OPENMVG_ROT_MAT @ extrinsic.rotation if convert_rotations else extrinsic.rotation).tolist(),
                 "center": extrinsic.center
             }
         }

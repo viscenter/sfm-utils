@@ -17,12 +17,13 @@ class Format(Enum):
     ALICE_VISION = auto()
 
 
-def export_scene(path: Union[str, bytes, PathLike], scene: Scene, fmt: Format = Format.OPEN_MVG):
+def export_scene(path: Union[str, bytes, PathLike], scene: Scene, fmt: Format = Format.OPEN_MVG,
+                 convert_rotations: bool = True):
     """
     Export Scene to a project file
     """
     if fmt == Format.OPEN_MVG:
-        data = scene_to_openmvg(scene)
+        data = scene_to_openmvg(scene, convert_rotations=convert_rotations)
     elif fmt == Format.ALICE_VISION:
         data = scene_to_alicevision(scene)
     else:
