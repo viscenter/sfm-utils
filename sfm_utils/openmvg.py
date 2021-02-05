@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import re
 from os import PathLike
 from pathlib import Path
 from typing import Union
@@ -25,6 +26,8 @@ import numpy as np
 from sfm_utils.sfm import Intrinsic, IntrinsicType, Pose, Scene, View
 
 __OPENMVG_CAMDB_DEFAULT_PATH = '/usr/local/share/openMVG/sensor_width_camera_database.txt'
+
+__OPENMVG_CAMDB_LINE_REGEXP = re.compile(r'("?)(?P<camera>[^"]+)\1;(?P<width>\d+(\.\d*)?)')
 
 __OPENMVG_ROT_MAT = np.array([[-1, 0, 0], [0, 1, 0], [0, 0, -1]])
 
@@ -55,11 +58,13 @@ def openmvg_load_camdb(db_path: Union[str, bytes, PathLike, None] = None) -> dic
     with file_path.open() as f:
         for line in f:
             line = line.rstrip()
-            if line.count(';') != 1:
+            match = re.match(__OPENMVG_CAMDB_LINE_REGEXP, line)
+            if match is None:
                 print(f'ERROR: Cannot parse CamDB entry: {line}')
                 continue
-            key, value = line.split(';')
-            d[key] = float(value)
+            key = match.group("camera")
+            value = float(match.group("width"))
+            d[key] = value
     return d
 
 
