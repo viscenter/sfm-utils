@@ -1,3 +1,7 @@
+# Note: This repository has been archived!
+Development on this project has moved to a new repository at https://gitlab.com/educelab/sfm-utils. This repository has been archived and no longer accepts pull requests or issues.
+
+
 # PySfMUtils
 A Python package for interacting with Structure-from-Motion (SfM) projects. 
 
